@@ -4,6 +4,6 @@ type Entity struct {
 	Fields []map[string]string
 }
 
-type Schema struct{
+type Schema struct {
 	Entities map[string]Entity
 }

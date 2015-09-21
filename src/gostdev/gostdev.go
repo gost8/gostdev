@@ -7,8 +7,8 @@ import (
 )
 
 type GlobalFlags struct {
-	Schema string
-	Verbose	bool
+	Schema  string
+	Verbose bool
 }
 
 var globalFlags GlobalFlags
@@ -23,9 +23,9 @@ func main() {
 	app.Name = "gostdev"
 	app.Usage = "Golang code generation tool"
 	app.Author = "Yuri Karamani <y.karamani@gmail.com>"
-	app.Flags = []cli.Flag {
+	app.Flags = []cli.Flag{
 		cli.StringFlag{
-			Name: "schema, s",
+			Name:  "schema, s",
 			Usage: "schema for generation",
 		},
 	}
@@ -39,9 +39,9 @@ func main() {
 		{
 			Name: "create",
 			Subcommands: []cli.Command{
-      			{
- 					Name:  "routes",
- 					Usage: "create routes for web application",
+				{
+					Name:  "routes",
+					Usage: "create routes for web application",
 					Action: func(c *cli.Context) {
 						fmt.Println("create routes")
 
@@ -61,16 +61,16 @@ func main() {
 						fmt.Printf("schema:\n%v\n\n", schema)
 					},
 				},
-     			{
- 					Name:  "models",
- 					Usage: "create models for web application",
+				{
+					Name:  "models",
+					Usage: "create models for web application",
 					Action: func(c *cli.Context) {
 						fmt.Println("create models")
 					},
 				},
-     			{
- 					Name:  "webclient",
- 					Usage: "create client package for web application",
+				{
+					Name:  "webclient",
+					Usage: "create client package for web application",
 					Action: func(c *cli.Context) {
 						fmt.Println("create webclient")
 					},
