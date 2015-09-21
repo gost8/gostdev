@@ -3,24 +3,19 @@ package main
 import (
 	"fmt"
 	"github.com/codegangsta/cli"
-	"gopkg.in/yaml.v2"
-	"io/ioutil"
 	"os"
 )
 
-type Field struct {
-	Name string
-	Type string
+type GlobalFlags struct {
+	Schema string
+	Verbose	bool
 }
 
-type Fields []Field
+var globalFlags GlobalFlags
 
-type Entity struct {
-	Fields Fields
-}
-
-type Schema struct{
-	Entity Entity
+func parseGlobalFlags(c *cli.Context) {
+	globalFlags.Schema = c.String("schema")
+	globalFlags.Verbose = c.Bool("verbose")
 }
 
 func main() {
@@ -28,6 +23,18 @@ func main() {
 	app.Name = "gostdev"
 	app.Usage = "Golang code generation tool"
 	app.Author = "Yuri Karamani <y.karamani@gmail.com>"
+	app.Flags = []cli.Flag {
+		cli.StringFlag{
+			Name: "schema, s",
+			Usage: "schema for generation",
+		},
+	}
+
+	app.Before = func(c *cli.Context) error {
+		parseGlobalFlags(c)
+		return nil
+	}
+
 	app.Commands = []cli.Command{
 		{
 			Name: "create",
@@ -36,21 +43,22 @@ func main() {
  					Name:  "routes",
  					Usage: "create routes for web application",
 					Action: func(c *cli.Context) {
-						data, err := ioutil.ReadFile("/home/y2k/projects/gostdev/test/fixtures/schema1/schema.yaml")
-						if err != nil {
-							fmt.Printf("error: %v", err)
-							panic(err)
-						}
-						
-						fmt.Print(string(data))
-						entity := Schema{}
-						err = yaml.Unmarshal(data, &entity)
-						if err != nil {
-							fmt.Printf("error: %v", err)
-							panic(err)
-						}
-						fmt.Printf("--- t:\n%v\n\n", entity)
 						fmt.Println("create routes")
+
+						data, err := loadYamlSchema(globalFlags.Schema)
+						if err != nil {
+							fmt.Printf("error: %v", err)
+							panic(err)
+						}
+
+						schema, err := unmarshalYamlSchema(data)
+						if err != nil {
+							fmt.Printf("error: %v", err)
+							panic(err)
+						}
+
+						fmt.Printf("data:\n%v\n\n", string(data))
+						fmt.Printf("schema:\n%v\n\n", schema)
 					},
 				},
      			{
@@ -59,7 +67,7 @@ func main() {
 					Action: func(c *cli.Context) {
 						fmt.Println("create models")
 					},
-				},				
+				},
      			{
  					Name:  "webclient",
  					Usage: "create client package for web application",
@@ -70,7 +78,7 @@ func main() {
 			},
 		},
 	}
-	
+
 	app.Action = func(c *cli.Context) {
 		fmt.Println("Cool tool!")
 	}

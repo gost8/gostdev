@@ -1,0 +1,11 @@
+entities:
+  User:
+    fields:
+      - test: int {-10,-3,-2,-1,0:}
+      - test2: string(255)
+      - testBool: bool = true
+
+  Department:
+    fields:
+      - id: int
+      - user: User
