@@ -56,7 +56,15 @@ func main() {
 							fmt.Printf("error: %v", err)
 							panic(err)
 						}
-
+						
+						for entityName, entityData := range schema.Entities {
+							fmt.Printf("%s:\n", entityName)
+							for _, field := range entityData.Fields {
+								for fieldName, fieldAttributes := range field {
+									fmt.Printf("%s: %s\n", fieldName, fieldAttributes)
+								}
+							}							
+						}
 						fmt.Printf("data:\n%v\n\n", string(data))
 						fmt.Printf("schema:\n%v\n\n", schema)
 					},
