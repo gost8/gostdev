@@ -7,6 +7,10 @@ import (
 const YamlSchema1 = `
 entities:
   User:
+    description: |
+      This is example
+      multiline text
+      in description
     fields:
       - id: int
 `
@@ -25,6 +29,10 @@ func TestUnmarshalYamlSchema1(t *testing.T) {
 	entity, ok := schema.Entities["User"]
 	if !ok {
 		t.Errorf("Entity not found! unmarshalYamlSchema(%q) == %q", YamlSchema1, schema)
+	}
+
+	if entity.Description != "This is example\nmultiline text\nin description\n" {
+		t.Errorf("Description invalid!\n%#v", entity.Description)
 	}
 
 	if len(entity.Fields) == 0 {

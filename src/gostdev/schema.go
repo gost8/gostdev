@@ -1,14 +1,15 @@
 package main
 
 type FieldAttributes struct {
-	Type string
+	Type   string
 	Length int
 	Minval float64
 	Maxval float64
 }
 
 type Entity struct {
-	Fields []map[string]string
+	Description string
+	Fields      []map[string]string
 }
 
 type Schema struct {

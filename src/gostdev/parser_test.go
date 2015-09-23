@@ -6,7 +6,7 @@ import (
 
 func TestParseFieldAttributesSuccess(t *testing.T) {
 	cases := []struct {
-		in string
+		in   string
 		want FieldAttributes
 	}{
 		{"string ( 255 ) { 1 : 2 } = 11", FieldAttributes{Type: "string", Length: 255, Minval: 1, Maxval: 2}},
@@ -32,7 +32,7 @@ func TestParseFieldAttributesSuccess(t *testing.T) {
 
 func TestParseFieldAttributesError(t *testing.T) {
 	cases := []struct {
-		in string
+		in            string
 		wantErrorText string
 	}{
 		{"", "parse error: empty field data"},

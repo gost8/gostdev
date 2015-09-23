@@ -24,7 +24,7 @@ func parseFieldAttributes(fieldData string) (*FieldAttributes, error) {
 		return nil, err
 	}
 
-    matches := r.FindStringSubmatch(s)
+	matches := r.FindStringSubmatch(s)
 	if len(matches) == 0 {
 		return nil, errors.New("parse error: field regexp not matched")
 	}
