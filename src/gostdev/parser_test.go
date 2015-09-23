@@ -9,13 +9,13 @@ func TestParseFieldAttributesSuccess(t *testing.T) {
 		in string
 		want FieldAttributes
 	}{
+		{"string ( 255 ) { 1 : 2 } = 11", FieldAttributes{Type: "string", Length: 255, Minval: 1, Maxval: 2}},
 		{"int", FieldAttributes{Type: "int"}},
 		{" int ", FieldAttributes{Type: "int"}},
 		{" int\n", FieldAttributes{Type: "int"}},
-		{"string (255)", FieldAttributes{Type: "string"}},
-		{"string(255)", FieldAttributes{Type: "string"}},
-		{"int{1:255}", FieldAttributes{Type: "int"}},
-		{"int\n", FieldAttributes{Type: "int"}},
+		{"string (25)", FieldAttributes{Type: "string", Length: 25}},
+		{"string\t(25)", FieldAttributes{Type: "string", Length: 25}},
+		{"int{1:255}", FieldAttributes{Type: "int", Minval: 1, Maxval: 255}},
 		{"int=20", FieldAttributes{Type: "int"}},
 	}
 
@@ -37,8 +37,8 @@ func TestParseFieldAttributesError(t *testing.T) {
 	}{
 		{"", "parse error: empty field data"},
 		{" ", "parse error: empty field data"},
-		{"()", "parse error: unknown type"},
-		{" {()} int", "parse error: unknown type"},
+		{"()", "parse error: field regexp not matched"},
+		{" {()} int", "parse error: field regexp not matched"},
 	}
 
 	for _, c := range cases {

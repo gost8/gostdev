@@ -3,6 +3,8 @@ package main
 type FieldAttributes struct {
 	Type string
 	Length int
+	Minval float64
+	Maxval float64
 }
 
 type Entity struct {
