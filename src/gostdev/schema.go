@@ -12,6 +12,13 @@ type Entity struct {
 	Fields      []map[string]string
 }
 
+type Function struct {
+	Description string
+	Method      string
+	Uri         string
+}
+
 type Schema struct {
-	Entities map[string]Entity
+	Entities  map[string]Entity
+	Functions map[string]Function
 }

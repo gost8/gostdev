@@ -13,6 +13,12 @@ entities:
       in description
     fields:
       - id: int
+
+functions:
+  getUser:
+    description: Get one user by id
+    method: GET
+    uri: /users/{userId}
 `
 
 func TestUnmarshalYamlSchema1(t *testing.T) {
@@ -47,4 +53,19 @@ func TestUnmarshalYamlSchema1(t *testing.T) {
 		t.Errorf("Field data error! unmarshalYamlSchema(%q) == %q", YamlSchema1, schema)
 	}
 
+	if len(schema.Functions) != 1 {
+		t.Errorf("unmarshalYamlSchema(%q) == %q", YamlSchema1, schema)
+	}
+
+	function, ok := schema.Functions["getUser"]
+	if !ok {
+		t.Errorf("Function not found! unmarshalYamlSchema(%q) == %q", YamlSchema1, schema)
+	}
+
+	if function.Description != "Get one user by id" ||
+		function.Method != "GET" ||
+		function.Uri != "/users/{userId}" {
+
+		t.Errorf("Function штмфдшв! %q", function)
+	}
 }
