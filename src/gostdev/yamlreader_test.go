@@ -12,13 +12,15 @@ entities:
       multiline text
       in description
     fields:
-      - id: int
+      id: int
 
 functions:
   getUser:
     description: Get one user by id
     method: GET
     uri: /users/{userId}
+    args:
+      userId: int
 `
 
 func TestUnmarshalYamlSchema1(t *testing.T) {
@@ -45,7 +47,7 @@ func TestUnmarshalYamlSchema1(t *testing.T) {
 		t.Errorf("Fields is empty! unmarshalYamlSchema(%q) == %q", YamlSchema1, schema)
 	}
 
-	fieldId, ok := entity.Fields[0]["id"]
+	fieldId, ok := entity.Fields["id"]
 	if !ok {
 		t.Errorf("Field not found! unmarshalYamlSchema(%q) == %q", YamlSchema1, schema)
 	}

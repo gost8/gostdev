@@ -59,16 +59,14 @@ func main() {
 
 						for entityName, entityData := range schema.Entities {
 							fmt.Printf("%s:\n", entityName)
-							for _, field := range entityData.Fields {
-								for fieldName, fieldData := range field {
-									fmt.Printf("%s: %s\n", fieldName, fieldData)
-									fieldAttributes, err := parseFieldAttributes(fieldData)
-									if err != nil {
-										fmt.Printf("Parse error: %v", err)
-										panic(err)
-									}
-									fmt.Printf("%v\n", fieldAttributes)
+							for fieldName, fieldData := range entityData.Fields {
+								fmt.Printf("%s: %s\n", fieldName, fieldData)
+								fieldAttributes, err := parseFieldAttributes(fieldData)
+								if err != nil {
+									fmt.Printf("Parse error: %v", err)
+									panic(err)
 								}
+								fmt.Printf("%v\n", fieldAttributes)
 							}
 						}
 						fmt.Printf("data:\n%v\n\n", string(data))

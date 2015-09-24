@@ -9,13 +9,14 @@ type FieldAttributes struct {
 
 type Entity struct {
 	Description string
-	Fields      []map[string]string
+	Fields      map[string]string
 }
 
 type Function struct {
 	Description string
 	Method      string
 	Uri         string
+	Args        map[string]string
 }
 
 type Schema struct {

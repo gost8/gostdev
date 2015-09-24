@@ -1,11 +1,18 @@
 entities:
   User:
     fields:
-      - test: int {-10,-3,-2,-1,0:}
-      - test2: string(255)
-      - testBool: bool = true
+      test: int {0:}
+      test2: string(255)
+      testBool: bool = true
 
   Department:
     fields:
-      - id: int
-      - user: User
+      id: int
+      user: User
+
+functions:
+  getUser:
+    method: GET
+    uri: /users/{userId}
+    args: 
+      userId: int
