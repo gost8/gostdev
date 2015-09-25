@@ -49,7 +49,7 @@ func TestUnmarshalYamlSchema1(t *testing.T) {
 
 	fieldId, ok := entity.Fields["id"]
 	if !ok {
-		t.Errorf("Field not found! unmarshalYamlSchema(%q) == %q", YamlSchema1, schema)
+		t.Errorf("Field 'id' not found! unmarshalYamlSchema(%q) == %q", YamlSchema1, schema)
 	}
 	if fieldId != "int" {
 		t.Errorf("Field data error! unmarshalYamlSchema(%q) == %q", YamlSchema1, schema)
@@ -68,6 +68,19 @@ func TestUnmarshalYamlSchema1(t *testing.T) {
 		function.Method != "GET" ||
 		function.Uri != "/users/{userId}" {
 
-		t.Errorf("Function штмфдшв! %q", function)
+		t.Errorf("Function invalid! %q", function)
 	}
+	
+	if len(function.Args) != 1 {
+		t.Errorf("Args count error! %d, want 1", len(function.Args))		
+	}
+	
+	arg, ok := function.Args["userId"]
+	if !ok {
+		t.Errorf("Argument 'userId' not found!")
+	}
+	
+	if arg != "int" {
+		t.Errorf("Argument data error! %q, want 'int'", arg)
+	}	
 }
