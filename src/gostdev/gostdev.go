@@ -61,12 +61,13 @@ func main() {
 							fmt.Printf("%s:\n", entityName)
 							for fieldName, fieldData := range entityData.Fields {
 								fmt.Printf("%s: %s\n", fieldName, fieldData)
-								fieldAttributes, err := parseFieldAttributes(fieldData)
+								field := &Field{}
+								err := parseFieldAttributes(fieldData, field)
 								if err != nil {
 									fmt.Printf("Parse error: %v", err)
 									panic(err)
 								}
-								fmt.Printf("%v\n", fieldAttributes)
+								fmt.Printf("%v\n", field)
 							}
 						}
 						fmt.Printf("data:\n%v\n\n", string(data))

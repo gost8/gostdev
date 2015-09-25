@@ -1,6 +1,7 @@
 package main
 
-type FieldAttributes struct {
+type Field struct {
+	Name string
 	Type   string
 	Length int
 	Minval float64
@@ -9,17 +10,18 @@ type FieldAttributes struct {
 
 type Entity struct {
 	Description string
-	Fields      map[string]string
+	Fields      []Field
 }
 
 type Function struct {
 	Description string
-	Method      string
-	Uri         string
-	Args        map[string]string
+	Method string
+	Uri string
+	Args []Field
 }
 
 type Schema struct {
-	Entities  map[string]Entity
-	Functions map[string]Function
+	Entities []Entity
+	Functions []Function
 }
+

@@ -7,25 +7,26 @@ import (
 func TestParseFieldAttributesSuccess(t *testing.T) {
 	cases := []struct {
 		in   string
-		want FieldAttributes
+		want Field
 	}{
-		{"string ( 255 ) { 1 : 2 } = 11", FieldAttributes{Type: "string", Length: 255, Minval: 1, Maxval: 2}},
-		{"int", FieldAttributes{Type: "int"}},
-		{" int ", FieldAttributes{Type: "int"}},
-		{" int\n", FieldAttributes{Type: "int"}},
-		{"string (25)", FieldAttributes{Type: "string", Length: 25}},
-		{"string\t(25)", FieldAttributes{Type: "string", Length: 25}},
-		{"int{1:255}", FieldAttributes{Type: "int", Minval: 1, Maxval: 255}},
-		{"int=20", FieldAttributes{Type: "int"}},
+		{"string ( 255 ) { 1 : 2 } = 11", Field{Type: "string", Length: 255, Minval: 1, Maxval: 2}},
+		{"int", Field{Type: "int"}},
+		{" int ", Field{Type: "int"}},
+		{" int\n", Field{Type: "int"}},
+		{"string (25)", Field{Type: "string", Length: 25}},
+		{"string\t(25)", Field{Type: "string", Length: 25}},
+		{"int{1:255}", Field{Type: "int", Minval: 1, Maxval: 255}},
+		{"int=20", Field{Type: "int"}},
 	}
 
 	for _, c := range cases {
-		attrs, err := parseFieldAttributes(c.in)
+		field := &Field{}
+		err := parseFieldAttributes(c.in, field)
 		if err != nil {
 			t.Error(c.in, err)
 		}
-		if *attrs != c.want {
-			t.Errorf("parseFieldAttributes(%q) == %q, want %q", c.in, attrs, c.want)
+		if *field != c.want {
+			t.Errorf("parseFieldAttributes(%q) == %q, want %q", c.in, field, c.want)
 		}
 	}
 }
@@ -42,10 +43,8 @@ func TestParseFieldAttributesError(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		attrs, err := parseFieldAttributes(c.in)
-		if attrs != nil {
-			t.Errorf("parseFieldAttributes(%q) == %q, want nil", c.in, attrs)
-		}
+		field := &Field{}
+		err := parseFieldAttributes(c.in, field)
 		if err == nil {
 			t.Errorf("parseFieldAttributes(%q) return not error, want '%q'", c.in, c.wantErrorText)
 		} else {

@@ -5,6 +5,23 @@ import (
 	"io/ioutil"
 )
 
+type YEntity struct {
+	Description string
+	Fields      map[string]string
+}
+
+type YFunction struct {
+	Description string
+	Method string
+	Uri string
+	Args map[string]string
+}
+
+type YSchema struct {
+	Entities map[string]YEntity
+	Functions map[string]YFunction
+}
+
 func loadYamlSchema(schemaFile string) ([]byte, error) {
 
 	file := "schema.yaml"
@@ -15,8 +32,8 @@ func loadYamlSchema(schemaFile string) ([]byte, error) {
 	return ioutil.ReadFile(file)
 }
 
-func unmarshalYamlSchema(data []byte) (*Schema, error) {
-	schema := Schema{}
+func unmarshalYamlSchema(data []byte) (*YSchema, error) {
+	schema := YSchema{}
 	err := yaml.Unmarshal(data, &schema)
 	return &schema, err
 }
