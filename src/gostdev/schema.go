@@ -66,6 +66,16 @@ func (f *Function) SetName(name string) *Function {
 	return f
 }
 
+func (f *Function) SetMethod(method string) *Function {
+	f.Method = method
+	return f
+}
+
+func (f *Function) SetUri(uri string) *Function {
+	f.Uri = uri
+	return f
+}
+
 type Entity struct {
 	Description string
 	Name string
