@@ -18,3 +18,10 @@ func TestNewFunction(t *testing.T) {
 		t.Errorf("Error NewFunction: return %q, want '*main.Function'", reflect.TypeOf(f))
 	}
 }
+
+func TestNewEntity(t *testing.T) {
+	e := NewEntity()
+	if reflect.TypeOf(e).String() != "*main.Entity" {
+		t.Errorf("Error NewEntity: return %q, want '*main.Entity'", reflect.TypeOf(e))
+	}
+}

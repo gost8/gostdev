@@ -51,27 +51,33 @@ func main() {
 							panic(err)
 						}
 
-						schema, err := unmarshalYamlSchema(data)
+						yschema, err := unmarshalYamlSchema(data)
 						if err != nil {
 							fmt.Printf("Yaml error: %v", err)
 							panic(err)
 						}
-
-						for entityName, entityData := range schema.Entities {
+						
+						schema := &Schema{}
+						
+						for entityName, entityData := range yschema.Entities {
+							entity := NewEntity().SetName(entityName)
 							fmt.Printf("%s:\n", entityName)
 							for fieldName, fieldData := range entityData.Fields {
 								fmt.Printf("%s: %s\n", fieldName, fieldData)
-								field := &Field{}
+								field := &Field{Name: fieldName}
 								err := parseFieldAttributes(fieldData, field)
 								if err != nil {
 									fmt.Printf("Parse error: %v", err)
 									panic(err)
 								}
 								fmt.Printf("%v\n", field)
+								entity.AddField(field)
 							}
+							schema.AddEntity(entity)
 						}
+						
 						fmt.Printf("data:\n%v\n\n", string(data))
-						fmt.Printf("schema:\n%v\n\n", schema)
+						fmt.Printf("schema:\n%q\n\n", *schema)
 					},
 				},
 				{

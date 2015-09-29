@@ -48,7 +48,7 @@ type Function struct {
 	Name string
 	Method string
 	Uri string
-	Args []Field
+	Args []*Field
 	Required []string
 }
 
@@ -76,22 +76,51 @@ func (f *Function) SetUri(uri string) *Function {
 	return f
 }
 
+func (f *Function) AddArg(arg *Field) *Function {
+	f.Args = append(f.Args, arg)
+	return f
+}
+
 type Entity struct {
 	Description string
 	Name string
-	Fields []Field
+	Fields []*Field
 }
 
 func NewEntity() *Entity {
 	return &Entity{}
 }
 
+func (e *Entity) SetDescription(description string) *Entity {
+	e.Description = description
+	return e
+}
+
+func (e *Entity) SetName(name string) *Entity {
+	e.Name = name
+	return e
+}
+
+func (e *Entity) AddField(field *Field) *Entity {
+	e.Fields = append(e.Fields, field)
+	return e
+}
+
 type Schema struct {
-	Entities []Entity
-	Functions []Function
+	Entities []*Entity
+	Functions []*Function
 }
 
 func NewSchema() *Schema {
 	return &Schema{}
 }
 
+func (s *Schema) AddEntity(entity *Entity) *Schema {
+	s.Entities = append(s.Entities, entity)
+	return s
+}
+
+func (s *Schema) AddFunction(function *Function) *Schema {
+	s.Functions = append(s.Functions, function)
+	return s
+}
