@@ -12,6 +12,35 @@ func TestNewField(t *testing.T) {
 	}
 }
 
+func TestFieldSetters(t *testing.T) {
+	f := NewField().
+		SetDescription("Test description").
+		SetName("testFieldName").
+		SetType("string").
+		SetLength(255).
+		SetMinval(1).
+		SetMaxval(2.5)
+		
+	if f.Description != "Test description" {
+		t.Errorf("Error SetDescription: return %q, want 'Test description'", f.Description)
+	}
+	if f.Name != "testFieldName" {
+		t.Errorf("Error SetName: return %q, want 'testFieldName'", f.Name)
+	}
+	if f.Type != "string" {
+		t.Errorf("Error SetType: return %q, want 'string'", f.Type)
+	}
+	if f.Length != 255 {
+		t.Errorf("Error SetLength: return %q, want '255'", f.Length)
+	}
+	if f.Minval != 1 {
+		t.Errorf("Error SetMinval: return %q, want '1'", f.Minval)
+	}
+	if f.Maxval != 2.5 {
+		t.Errorf("Error SetMaxval: return %q, want '2.5'", f.Maxval)
+	}
+}
+
 func TestNewFunction(t *testing.T) {
 	f := NewFunction()
 	if reflect.TypeOf(f).String() != "*main.Function" {
