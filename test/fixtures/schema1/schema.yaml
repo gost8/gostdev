@@ -12,6 +12,9 @@ entities:
 
 functions:
   getUser:
+    description: |
+      Get User by id.
+      Id is integer.
     method: GET
     uri: /users/{userId}
     args: 

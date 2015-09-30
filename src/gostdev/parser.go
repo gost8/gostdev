@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func parseFieldAttributes(fieldData string, field *Field) (error) {
+func parseFieldAttributes(fieldData string, field *Field) error {
 
 	s := strings.Replace(fieldData, " ", "", -1)
 	s = strings.Replace(s, "\n", "", -1)

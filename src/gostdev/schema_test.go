@@ -20,7 +20,7 @@ func TestFieldSetters(t *testing.T) {
 		SetLength(255).
 		SetMinval(1).
 		SetMaxval(2.5)
-		
+
 	if f.Description != "Test description" {
 		t.Errorf("Error SetDescription: return %q, want 'Test description'", f.Description)
 	}

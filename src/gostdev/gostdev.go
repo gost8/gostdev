@@ -50,17 +50,20 @@ func main() {
 							fmt.Printf("error: %v", err)
 							panic(err)
 						}
+						fmt.Printf("data:\n%v\n\n", string(data))
 
 						yschema, err := unmarshalYamlSchema(data)
 						if err != nil {
 							fmt.Printf("Yaml error: %v", err)
 							panic(err)
 						}
-						
+
 						schema := &Schema{}
-						
+
 						for entityName, entityData := range yschema.Entities {
-							entity := NewEntity().SetName(entityName)
+							entity := NewEntity().
+								SetDescription(entityData.Description).
+								SetName(entityName)
 							fmt.Printf("%s:\n", entityName)
 							for fieldName, fieldData := range entityData.Fields {
 								fmt.Printf("%s: %s\n", fieldName, fieldData)
@@ -75,9 +78,29 @@ func main() {
 							}
 							schema.AddEntity(entity)
 						}
-						
-						fmt.Printf("data:\n%v\n\n", string(data))
-						fmt.Printf("schema:\n%q\n\n", *schema)
+
+						for functionName, functionData := range yschema.Functions {
+							function := NewFunction().
+								SetDescription(functionData.Description).
+								SetName(functionName).
+								SetMethod(functionData.Method).
+								SetUri(functionData.Uri)
+							fmt.Printf("%s:\n", functionName)
+							for argName, argData := range functionData.Args {
+								fmt.Printf("%s: %s\n", argName, argData)
+								argField := &Field{Name: argName}
+								err := parseFieldAttributes(argData, argField)
+								if err != nil {
+									fmt.Printf("Parse error: %v", err)
+									panic(err)
+								}
+								fmt.Printf("%v\n", argField)
+								function.AddArg(argField)
+							}
+							schema.AddFunction(function)
+						}
+
+						generateRoutes(schema)
 					},
 				},
 				{

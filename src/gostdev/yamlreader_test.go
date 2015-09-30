@@ -70,17 +70,17 @@ func TestUnmarshalYamlSchema1(t *testing.T) {
 
 		t.Errorf("Function invalid! %q", function)
 	}
-	
+
 	if len(function.Args) != 1 {
-		t.Errorf("Args count error! %d, want 1", len(function.Args))		
+		t.Errorf("Args count error! %d, want 1", len(function.Args))
 	}
-	
+
 	arg, ok := function.Args["userId"]
 	if !ok {
 		t.Errorf("Argument 'userId' not found!")
 	}
-	
+
 	if arg != "int" {
 		t.Errorf("Argument data error! %q, want 'int'", arg)
-	}	
+	}
 }

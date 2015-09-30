@@ -12,13 +12,13 @@ type YEntity struct {
 
 type YFunction struct {
 	Description string
-	Method string
-	Uri string
-	Args map[string]string
+	Method      string
+	Uri         string
+	Args        map[string]string
 }
 
 type YSchema struct {
-	Entities map[string]YEntity
+	Entities  map[string]YEntity
 	Functions map[string]YFunction
 }
 

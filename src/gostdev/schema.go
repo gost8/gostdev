@@ -2,11 +2,11 @@ package main
 
 type Field struct {
 	Description string
-	Name string
-	Type string
-	Length int
-	Minval float64
-	Maxval float64
+	Name        string
+	Type        string
+	Length      int
+	Minval      float64
+	Maxval      float64
 }
 
 func NewField() *Field {
@@ -45,11 +45,11 @@ func (f *Field) SetMaxval(maxval float64) *Field {
 
 type Function struct {
 	Description string
-	Name string
-	Method string
-	Uri string
-	Args []*Field
-	Required []string
+	Name        string
+	Method      string
+	Uri         string
+	Args        []*Field
+	Required    []string
 }
 
 func NewFunction() *Function {
@@ -83,8 +83,8 @@ func (f *Function) AddArg(arg *Field) *Function {
 
 type Entity struct {
 	Description string
-	Name string
-	Fields []*Field
+	Name        string
+	Fields      []*Field
 }
 
 func NewEntity() *Entity {
@@ -107,7 +107,7 @@ func (e *Entity) AddField(field *Field) *Entity {
 }
 
 type Schema struct {
-	Entities []*Entity
+	Entities  []*Entity
 	Functions []*Function
 }
 
