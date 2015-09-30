@@ -48,6 +48,27 @@ func TestNewFunction(t *testing.T) {
 	}
 }
 
+func TestFunctionSetters(t *testing.T) {
+	f := NewFunction().
+		SetDescription("Test description").
+		SetName("testFunctionName").
+		SetMethod("get").
+		SetUri("/test/{testId}")
+
+	if f.Description != "Test description" {
+		t.Errorf("Error SetDescription: return %q, want 'Test description'", f.Description)
+	}
+	if f.Name != "testFunctionName" {
+		t.Errorf("Error SetName: return %q, want 'testFunctionName'", f.Name)
+	}
+	if f.Method != "get" {
+		t.Errorf("Error SetMethod: return %q, want 'get'", f.Method)
+	}
+	if f.Uri != "/test/{testId}" {
+		t.Errorf("Error SetUri: return %q, want '/test/{testId}'", f.Uri)
+	}
+}
+
 func TestNewEntity(t *testing.T) {
 	e := NewEntity()
 	if reflect.TypeOf(e).String() != "*main.Entity" {
