@@ -26,7 +26,7 @@ func TestParseFieldAttributesSuccess(t *testing.T) {
 			t.Error(c.in, err)
 		}
 		if *field != c.want {
-			t.Errorf("parseFieldAttributes(%q) == %q, want %q", c.in, field, c.want)
+			t.Errorf("parseFieldAttributes(%v) == %v, want %v", c.in, field, c.want)
 		}
 	}
 }
@@ -46,10 +46,10 @@ func TestParseFieldAttributesError(t *testing.T) {
 		field := &Field{}
 		err := parseFieldAttributes(c.in, field)
 		if err == nil {
-			t.Errorf("parseFieldAttributes(%q) return not error, want '%q'", c.in, c.wantErrorText)
+			t.Errorf("parseFieldAttributes(%v) return not error, want '%v'", c.in, c.wantErrorText)
 		} else {
 			if err.Error() != c.wantErrorText {
-				t.Errorf("parseFieldAttributes(%q) return error '%q', want '%q'", c.in, err.Error(), c.wantErrorText)
+				t.Errorf("parseFieldAttributes(%q) return error '%v', want '%v'", c.in, err.Error(), c.wantErrorText)
 			}
 		}
 	}

@@ -34,10 +34,10 @@ func TestFieldSetters(t *testing.T) {
 		t.Errorf("Error SetLength: return %q, want '255'", f.Length)
 	}
 	if f.Minval != 1 {
-		t.Errorf("Error SetMinval: return %q, want '1'", f.Minval)
+		t.Errorf("Error SetMinval: return %v, want '1'", f.Minval)
 	}
 	if f.Maxval != 2.5 {
-		t.Errorf("Error SetMaxval: return %q, want '2.5'", f.Maxval)
+		t.Errorf("Error SetMaxval: return %v, want '2.5'", f.Maxval)
 	}
 }
 
