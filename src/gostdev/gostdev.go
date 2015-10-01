@@ -101,6 +101,7 @@ func main() {
 						}
 
 						generateRoutes(schema)
+						generateOperations(schema)
 					},
 				},
 				{

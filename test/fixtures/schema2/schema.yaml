@@ -1,0 +1,36 @@
+functions:
+  GetUsers:
+    description: Get Users List.
+    method: GET
+    uri: /users/
+
+  GetUser:
+    description: |
+      Get User by id.
+      Id is integer.
+    method: GET
+    uri: /users/{userId}
+    args: 
+      userId: int
+
+  CreateUser:
+    description: Create new user.
+    method: POST
+    uri: /users/create
+    args: 
+      userId: int
+
+  UpdateUser:
+    description: Update user by id.
+    method: POST
+    uri: /users/{userId}/update
+    args: 
+      userId: int
+
+  DeleteUser:
+    description: Delete user by id.
+    method: POST
+    uri: /users/{userId}/delete
+    args: 
+      userId: int
+
